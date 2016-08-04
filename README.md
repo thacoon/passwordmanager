@@ -30,4 +30,4 @@ Your password (alphabet, extended):  Qmh*QHW.MHNZ(;äsR3M)
 ```
 
 # To Do
-Create a db to store service names, so just the master password needs to be remembered
+* Change the versions in db, so password can be changed every x months
