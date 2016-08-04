@@ -4,18 +4,18 @@ passwordmanager
 It's a simple password manager. It needs two inputs. Your master password and a second one that should differ between each service, e.g. the service name. Then it creates four different passwords based on a SHA-512 hash.
 
 
-# Install:
+# Install
 ```bash
 $ git clone https://github.com/thacoon/passwordmanager
 $ cd passwormanager
 ```
 
-# To user passwormanager.py:
+# To user passwormanager.py
 ```bash
 $ python passwordmanager.py
 ```
 
-# Example:
+# Example
 ```bash
 $ python passwordmanager.py
 Master password:
