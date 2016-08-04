@@ -18,12 +18,15 @@ $ python passwordmanager.py
 # Example
 ```bash
 $ python passwordmanager.py
+ID  | SERVICE              | VERSION    | UPDATED   
+  1 | github               |          1 | 4.8.2016  
 Master password:
 Login credentials:
-Your password (hash, default):       YmFmZDhjMmY2YTE3MmVl
-Your password (hash, inverse):       xOGFmYzMxOTg2NmJkZTk
-Your password (alphabet):            jJc%uRYtZvöb(gEkjm!$
-Your password (alphabet, extended):  bpOgeäomk!%lOUbdü$gT
+Your password (hash, default):       OWFmMDgxODkyMDEzZTEy
+Your password (hash, inverse):       iODkxYzljZDg2MjIyMGQ
+Your password (alphabet):            na8$EFQ6eY_HL5eJ8R$f
+Your password (alphabet, extended):  Qmh*QHW.MHNZ(;äsR3M)
+
 ```
 
 # To Do
