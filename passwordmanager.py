@@ -6,6 +6,8 @@ You give in your master password and the service you are using and based on this
 import hashlib
 import base64
 import getpass
+import datetime
+import sqlite3
 
 ALPHABET = ('abcdefghijklmnopqrstuvwxyzäöü'
             'ABCDEFGHIJKLMNOPQRSTUVWXYZÄÖÜ'
@@ -14,6 +16,15 @@ ALPHABET_EXTENDED = ('abcdefghijklmnopqrstuvwxyzäöü'
             'ABCDEFGHIJKLMNOPQRSTUVWXYZÄÖÜ'
             '0123456789!"§$%&/()=?*+#.:,;-_')
 PASSW_LENGTH = 20
+
+def print_table(row):
+    print("{0:3} | {1:20} | {2:10} | {3:10}".format(row[0], row[1], row[2], row[3]))
+
+def date_today():
+    now = datetime.datetime.now()
+    date = str(now.day) + "." + str(now.month) + "." + str(now.year)
+
+    return date
 
 def generate_extended_password(alpha, passw):
     # Convert the hexdigest into decimal
@@ -30,11 +41,40 @@ def generate_extended_password(alpha, passw):
     return chars
 
 if __name__ == "__main__":
-    # Ask for master password and used service
-    master = getpass.getpass("Master password: ").encode("utf-8") # hides user input
+    try:
+        # Open the db or create if not exists
+        conn = sqlite3.connect("pwm.db") # pwm = passwordmanager
 
-    service = getpass.getpass("Login credentials: ").encode("utf-8").lower()
-    prim_passw = master+service
+        # create table if not exists
+        conn.execute('''CREATE TABLE IF NOT EXISTS SERVICES
+        (id INTEGER PRIMARY KEY AUTOINCREMENT,
+        service TEXT NOT NULL,
+        version INT DEFAULT 1,
+        updated TEXT NOT NULL,
+        UNIQUE(service));''')
+        # service is the name of the service, version is a number so password can be changed without changing service name (to-do), created is a time string when it was last updated
+
+        # Show all services stored in db
+        cursor = conn.execute("SELECT id, service, version, updated from SERVICES")
+
+        print_table(["ID", "SERVICE", "VERSION", "UPDATED"])
+        for row in cursor:
+            print_table(row)
+
+        # Ask for master password and used service
+        master = getpass.getpass("Master password: ").encode("utf-8") # hides user input
+
+        service = getpass.getpass("Login credentials: ").encode("utf-8").lower()
+        prim_passw = master+service
+
+        conn.execute("INSERT OR IGNORE INTO SERVICES (service, updated) VALUES(\"{}\", \"{}\")".format(service.decode("utf-8"), date_today()))
+        conn.commit()
+
+        conn.close()
+
+    except Exception as err:
+        print("[!] Error: {}".format(err))
+        exit(1)
 
     # Ceate a sha512 string of the master password and the online service
     hash = hashlib.sha512()
