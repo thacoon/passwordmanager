@@ -17,15 +17,26 @@ $ python passwordmanager/passwordmanager.py
 
 # Example
 ```bash
-$ python passwordmanager/passwordmanager.py
+[shepard@core PasswordManagerGit]$ python passwordmanager/passwordmanager.py
+Welcome to PWManager. It is a simple cmd line based password manager.
+
+[*] Menu
+	1: Generate existing password
+	2: Add new service to db
+	3: Change existing service in db
+	4: Exit
+[?] Choose a number: 1
+[*] Existing services
 ID  | SERVICE              | VERSION    | UPDATED   
-  1 | github               |          1 | 4.8.2016  
-Master password:
-Login credentials:
-Your password (hash, default):       OWFmMDgxODkyMDEzZTEy
-Your password (hash, inverse):       iODkxYzljZDg2MjIyMGQ
-Your password (alphabet):            na8$EFQ6eY_HL5eJ8R$f
-Your password (alphabet, extended):  Qmh*QHW.MHNZ(;äsR3M)
+  1 | github               |          2 | 9.8.2016  
+[?] Enter master password     :
+[?] Enter the service to use  : github
+
+[*] Passwords
+Your password (hash, default):       YzBlYWUxZjVmOGQ0YWI1
+Your password (hash, inverse):       wOGEyNWQxZDVjMWRmM2I
+Your password (alphabet):            ö&%2JNüWIü%ÜÜC^inj2ü
+Your password (alphabet, extended):  l/Ä&WqTAVau/y0MSHG);
 ```
 
 # Tests

@@ -232,7 +232,7 @@ def menu():
         print("[!] Error: Command not found")
 
 if __name__ == "__main__":
-    print("Welcome to PWManager.\nIt's a simple cmd line based password manager.")
+    print("Welcome to PWManager.\nIt is a simple cmd line based password manager.")
     pwm = PWManager()
     menu()
 
