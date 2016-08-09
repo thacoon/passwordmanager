@@ -12,12 +12,12 @@ $ cd passwormanager
 
 # Usage
 ```bash
-$ python passwordmanager.py
+$ python passwordmanager/passwordmanager.py
 ```
 
 # Example
 ```bash
-$ python passwordmanager.py
+$ python passwordmanager/passwordmanager.py
 ID  | SERVICE              | VERSION    | UPDATED   
   1 | github               |          1 | 4.8.2016  
 Master password:
@@ -26,8 +26,13 @@ Your password (hash, default):       OWFmMDgxODkyMDEzZTEy
 Your password (hash, inverse):       iODkxYzljZDg2MjIyMGQ
 Your password (alphabet):            na8$EFQ6eY_HL5eJ8R$f
 Your password (alphabet, extended):  Qmh*QHW.MHNZ(;äsR3M)
-
 ```
+
+# Tests
+```bash
+$ python -m unittest
+```
+
 
 # To Do
 * Change the versions in db, so password can be changed every x months
