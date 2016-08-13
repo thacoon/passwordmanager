@@ -10,6 +10,11 @@ $ git clone https://github.com/thacoon/passwordmanager
 $ cd passwormanager
 ```
 
+# Update
+```bash
+$ git pull https://github.com/thacoon/passwordmanager.git
+```
+
 # Usage
 ```bash
 $ python passwordmanager/passwordmanager.py
