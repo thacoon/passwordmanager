@@ -46,4 +46,5 @@ $ python -m unittest
 
 
 # To Do
-* Change the versions in db, so password can be changed every x months
+* Settings like e.g. password length
+* Maybe GUI
