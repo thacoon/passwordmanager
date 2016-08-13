@@ -1,7 +1,12 @@
 import unittest
 import os
 import sqlite3
+import getpass
+import mock
 from passwordmanager import passwordmanager as script
+
+def input_get_service(self):
+        return "github"
 
 class TestFunctions(unittest.TestCase):
     @classmethod
@@ -21,6 +26,8 @@ class TestFunctions(unittest.TestCase):
         db_file = os.getcwd() + "/pwm.db"
         if os.path.isfile(db_file):
             os.remove(db_file)
+
+        print("\n") # for a newline at the end
 
     def check_db_entry(self):
         try:
@@ -61,14 +68,23 @@ class TestFunctions(unittest.TestCase):
 
         self.assertEqual(version, 2)
 
-    def test_get_service(self):
-        pass
+    @mock.patch("getpass.getpass", return_value="pw123")
+    @mock.patch("builtins.input", return_value="test-service")
+    def test_04_get_master_password_and_service(self, getpass, input):
+        self.assertEqual(script.get_master_passw_and_service(), self.mp + self.ts + str(2))
 
-    def test_get_master_password_and_service(self):
-        pass
+    @mock.patch("builtins.input", return_value="github")
+    def test_get_service(self, input):
+        self.assertEqual(script.get_service(), "github")
 
-    def test_get_master_password_with_verification(self):
-        pass
+    @mock.patch("getpass.getpass", return_value="MyP455W0Rd")
+    @mock.patch("builtins.input", return_value="github")
+    def test_get_master_password_and_service(self, getpass, input):
+        self.assertEqual(script.get_master_passw_and_service(), "MyP455W0Rdgithub")
+
+    @mock.patch("getpass.getpass", return_value="MyP455W0Rd")
+    def test_get_master_password_with_verification(self, getpass):
+        self.assertEqual(script.get_master_passw_with_verification(), "MyP455W0Rd")
 
 if __name__ == "__main__":
     unittest.main()

@@ -61,12 +61,5 @@ class TestFunctions(unittest.TestCase):
         self.assertEqual(self.manager.hash_digest, hash_digest_expected)
         self.assertEqual(self.manager.encoded, encoding_expected)
 
-
-    def test_date_today(self):
-        pass
-
-    def test_generate_alphabet_password(self):
-        pass
-
 if __name__ == "__main__":
     unittest.main()
