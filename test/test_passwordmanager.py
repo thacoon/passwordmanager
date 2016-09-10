@@ -1,13 +1,14 @@
 import unittest
 from passwordmanager import passwordmanager as pwm
 
+
 class TestFunctions(unittest.TestCase):
     @classmethod
     def setUpClass(self):
         self.ALPHABET = ('abcdefghijklmnopqrstuvwxyzäöü'
-                    'ABCDEFGHIJKLMNOPQRSTUVWXYZÄÖÜ'
-                    '0123456789!@#$%^&*()-_')
-        self.manager = pwm.PWManager()
+                         'ABCDEFGHIJKLMNOPQRSTUVWXYZÄÖÜ'
+                         '0123456789!@#$%^&*()-_')
+        self.manager = pwm.PWGenerator()
         self.hash = ""
         self.encoding = ""
 
@@ -20,7 +21,7 @@ class TestFunctions(unittest.TestCase):
         self.assertEqual(self.manager.passw, "password".encode("utf-8"))
 
     def test_02_create_sha_512_hash(self):
-        hash_expected = "b109f3bbbc244eb82441917ed06d618b9008dd09b3befd1b5e07394c706a8bb980b1d7785e5976ec049b46df5f1326af5a2ea6d103fd07c95385ffab0cacbc86" # hex digest of hash for "password", password is utf-8 encoded
+        hash_expected = "b109f3bbbc244eb82441917ed06d618b9008dd09b3befd1b5e07394c706a8bb980b1d7785e5976ec049b46df5f1326af5a2ea6d103fd07c95385ffab0cacbc86"  # hex digest of hash for "password", password is utf-8 encoded
         self.manager.create_sha_512_hash()
 
         self.assertEqual(hash_expected, self.manager.hash_digest)

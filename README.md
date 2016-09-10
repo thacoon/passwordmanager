@@ -8,6 +8,9 @@ It's a simple password manager. It needs two inputs. Your master password and a 
 ```bash
 $ git clone https://github.com/thacoon/passwordmanager
 $ cd passwormanager
+# It is tested with Python 3.5.2
+# currently no requirements for production except Python 3.5
+# pip install -r requirements/production.txt
 ```
 
 # Update
@@ -46,10 +49,19 @@ Your password (alphabet, extended):  l/Ä&WqTAVau/y0MSHG);
 
 # Tests
 ```bash
-$ python -m unittest
+# install the needed requirements
+$ pip install -r requirements/testing.txt
+$ flake8 --max-line-length=120  # test styling
+
+$ coverage run --source='.' -m unittest  # test the tests
+$ coverage report
+$ coverage html
+
+$ python -m unittest  # run tests
 ```
 
 
 # To Do
-* Settings like e.g. password length
+* Add new password generating hashes
+* Store settings like e.g. password length in db
 * Maybe GUI

@@ -8,24 +8,25 @@ import base64
 import getpass
 import datetime
 import sqlite3
-import unittest
 
 ALPHABET = ('abcdefghijklmnopqrstuvwxyzäöü'
             'ABCDEFGHIJKLMNOPQRSTUVWXYZÄÖÜ'
             '0123456789!@#$%^&*()-_')
+
 ALPHABET_EXTENDED = ('abcdefghijklmnopqrstuvwxyzäöü'
-            'ABCDEFGHIJKLMNOPQRSTUVWXYZÄÖÜ'
-            '0123456789!"§$%&/()=?*+#.:,;-_')
+                     'ABCDEFGHIJKLMNOPQRSTUVWXYZÄÖÜ'
+                     '0123456789!"§$%&/()=?*+#.:,;-_')
+
 PASSW_LENGTH = 20
 
-class PWManager:
+
+class PWGenerator:
     def __init__(self):
         self.passw = "".encode("utf-8")
         self.passw_length = 20
         self.hash = hashlib.sha512()
         self.hash_digest = hashlib.sha512().hexdigest()
         self.encoded = base64.b64encode(b"")
-        self.date = "1.1.2000"
 
     def __del__(self):
         pass
@@ -59,7 +60,7 @@ class PWManager:
         # Convert the hexdigest into decimal
         num = int(self.hash_digest, 16)
 
-        num_chars = len(alphabet) # base to convert num
+        num_chars = len(alphabet)  # base to convert num
         chars = []
 
         # generate new password, one digit at a time up to password length
@@ -73,16 +74,18 @@ class PWManager:
 def print_table_cmd_line(row):
     print("{0:3} | {1:20} | {2:10} | {3:10}".format(row[0], row[1], row[2], row[3]))
 
+
 def date_today():
     now = datetime.datetime.now()
     date = str(now.day) + "." + str(now.month) + "." + str(now.year)
 
     return date
 
+
 def display_db():
     try:
         # Open the db or create if not exists
-        conn = sqlite3.connect("pwm.db") # pwm = passwordmanager
+        conn = sqlite3.connect("pwm.db")  # pwm = passwordmanager
 
         # Show all services stored in db
         cursor = conn.execute("SELECT id, service, version, updated from SERVICES")
@@ -98,10 +101,11 @@ def display_db():
         print("[!] Error: {}".format(err))
         exit(1)
 
+
 def get_version_of_service(service):
     try:
         # Open the db or create if not exists
-        conn = sqlite3.connect("pwm.db") # pwm = passwordmanager
+        conn = sqlite3.connect("pwm.db")  # pwm = passwordmanager
 
         # Show all services stored in db
         cursor = conn.execute("SELECT id, service, version, updated from SERVICES")
@@ -111,7 +115,6 @@ def get_version_of_service(service):
             if service == row[1]:
                 return row[2]
 
-
         conn.close()
         return -1
 
@@ -119,11 +122,13 @@ def get_version_of_service(service):
         print("[!] Error: {}".format(err))
         exit(1)
 
+
 def get_service():
     print("Enter service name: ", end="")
     user_service = input().lower()
 
     return user_service
+
 
 def get_master_passw_and_service():
     master_passw = getpass.getpass("[?] Enter master password     : ")
@@ -137,6 +142,7 @@ def get_master_passw_and_service():
 
     return (master_passw + service)
 
+
 def get_master_passw_with_verification():
     master_passw_one = getpass.getpass("[?] Enter master password     : ")
     master_passw_two = getpass.getpass("[?] Verify master password    : ")
@@ -146,10 +152,11 @@ def get_master_passw_with_verification():
 
     return master_passw_one
 
+
 def add_new_password(master_passw, service):
     try:
         # Open the db or create if not exists
-        conn = sqlite3.connect("pwm.db") # pwm = passwordmanager
+        conn = sqlite3.connect("pwm.db")  # pwm = passwordmanager
 
         # create table if not exists
         conn.execute('''CREATE TABLE IF NOT EXISTS SERVICES
@@ -158,7 +165,9 @@ def add_new_password(master_passw, service):
         version INT DEFAULT 1,
         updated TEXT NOT NULL,
         UNIQUE(service));''')
-        # service is the name of the service, version is a number so password can be changed without changing service name (to-do), created is a time string when it was last updated
+        # service is the name of the service
+        # version is a number so password can be changed without changing service name (to-do)
+        # created is a time string when it was last updated
 
         conn.execute("INSERT OR IGNORE INTO SERVICES (service, updated) VALUES(\"{}\", \"{}\")".format(service, date_today()))
         conn.commit()
@@ -173,10 +182,11 @@ def add_new_password(master_passw, service):
         print("[!] Error: {}".format(err))
         exit(1)
 
+
 def change_password(master_passw, service):
     try:
         # Open the db or create if not exists
-        conn = sqlite3.connect("pwm.db") # pwm = passwordmanager
+        conn = sqlite3.connect("pwm.db")  # pwm = passwordmanager
 
         # Show all services stored in db
         cursor = conn.execute("SELECT id, service, version, updated from SERVICES")
@@ -192,12 +202,14 @@ def change_password(master_passw, service):
         print("[!] Error: {}".format(err))
         exit(1)
 
+
 def print_passwords():
     print("\n[*] Passwords")
     print("Your password (hash, default):       {}".format(pwm.get_passw_default()))
     print("Your password (hash, inverse):       {}".format(pwm.get_passw_default_inverse()))
     print("Your password (alphabet):            {}".format(pwm.get_passw_alphabet(ALPHABET)))
     print("Your password (alphabet, extended):  {}".format(pwm.get_passw_alphabet(ALPHABET_EXTENDED)))
+
 
 def menu():
     print("\n[*] Menu")
@@ -231,9 +243,10 @@ def menu():
     else:
         print("[!] Error: Command not found")
 
+
 if __name__ == "__main__":
     print("Welcome to PWManager.\nIt is a simple cmd line based password manager.")
-    pwm = PWManager()
+    pwm = PWGenerator()
     menu()
 
     exit(0)

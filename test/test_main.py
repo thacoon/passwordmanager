@@ -1,12 +1,13 @@
 import unittest
 import os
 import sqlite3
-import getpass
-import mock
+import unittest.mock as mock
 from passwordmanager import passwordmanager as script
+
 
 def input_get_service(self):
         return "github"
+
 
 class TestFunctions(unittest.TestCase):
     @classmethod
@@ -27,7 +28,7 @@ class TestFunctions(unittest.TestCase):
         if os.path.isfile(db_file):
             os.remove(db_file)
 
-        print("\n") # for a newline at the end
+        print("\n")  # for a newline at the end
 
     def check_db_entry(self):
         try:
