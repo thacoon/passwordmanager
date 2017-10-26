@@ -1,4 +1,4 @@
-MOVED TO [https://gitlab.com/thacoon/pwmanager](https://gitlab.com/thacoon/pwmanager)
+DEPRECATED
 ===========
 
 passwordmanager
